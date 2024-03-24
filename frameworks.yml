@@ -39,10 +39,6 @@
         name: docker.service
         state: started
 
-    - name: Install Docker using Ansible Galaxy
-      community.general.docker_compose:
-        install_compose: true
-
     - name: Launch containers
       docker_container:
         name: "{{ item.name }}"
