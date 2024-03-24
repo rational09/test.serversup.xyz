@@ -1,0 +1,60 @@
+---
+- name: Install Nginx, SSL files, configure, Install Docker, and launch containers
+  hosts: all
+  become: true
+  tasks:
+
+    - name: Install Nginx
+      package:
+        name: nginx
+        state: present
+    - name: Copy multiple files
+      copy:
+        src: "{{ item.src }}"
+        dest: "{{ item.dest }}"
+      loop:
+        - { src: "frontend-code/index.html", dest: "/var/www/html" }
+        - { src: "frontend-code/twitterlogo.png", dest: "/var/www/html" }
+        - { src: "frontend-code/github-logo.webp", dest: "/var/www/html" }
+
+
+    - name: Copy nginx config
+      copy:
+        src: forconfig/default
+        dest: /etc/nginx/sites-enabled/
+      notify:
+        - Restart Nginx
+
+    - name: Update package cache
+      apt:
+        update_cache: yes
+
+    - name: Install Docker
+      apt:
+        name: docker.io
+        state: present
+
+    - name: Start Docker service
+      service:
+        name: docker.service
+        state: started
+
+    - name: Launch containers
+      docker_container:
+        name: "{{ item.name }}"
+        image: "{{ item.image }}"
+        state: started
+        ports:
+          - "{{item.host_port}}:{{item.container_port}}"
+      loop:
+        - { name: "container1", image: "malharchikhale/node_says_hello:v0.0.5", host_port: "3000", container_port: "3000" }
+        - { name: "container2", image: "malharchikhale/django_says_hello:v0.0.1", host_port: "8000", container_port: "8000" }
+        - { name: "container3", image: "malharchikhale/spring_says_hello:0.0.1", host_port: "9000", container_port: "9000" }
+
+
+  handlers:
+    - name: Restart Nginx
+      service:
+        name: nginx
+        state: restarted
+

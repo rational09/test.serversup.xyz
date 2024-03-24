@@ -1,0 +1,34 @@
+DEPRECATED: The legacy builder is deprecated and will be removed in a future release.
+            Install the buildx component to build images with BuildKit:
+            https://docs.docker.com/go/buildx/
+
+Sending build context to Docker daemon  52.22kB
+Step 1/9 : FROM python:3.13-rc-slim-bullseye
+ ---> 422ed44fb15e
+Step 2/9 : RUN apt-get update && apt-get install -y vim
+ ---> Using cache
+ ---> f851850548f6
+Step 3/9 : ENV YOUR_DOMAIN_NAME="my-value"
+ ---> Using cache
+ ---> 892ad095d499
+Step 4/9 : WORKDIR /malhar/app
+ ---> Using cache
+ ---> 9858799cb347
+Step 5/9 : COPY requirements.txt /malhar/app/requirements.txt
+ ---> Using cache
+ ---> cd1263d873a5
+Step 6/9 : RUN pip install --no-cache-dir -r requirements.txt
+ ---> Using cache
+ ---> 3fc5a76e8e44
+Step 7/9 : COPY . /malhar/app
+ ---> 3fdf68ff8d77
+Step 8/9 : EXPOSE 8000
+ ---> Running in 019c7c5b9e3f
+Removing intermediate container 019c7c5b9e3f
+ ---> ce6d142f4284
+Step 9/9 : CMD ["python3", "manage.py", "runserver", "0.0.0.0:8000"]
+ ---> Running in 469d2eba36ae
+Removing intermediate container 469d2eba36ae
+ ---> 77ae7bd4add3
+Successfully built 77ae7bd4add3
+Successfully tagged asyouwish:latest
