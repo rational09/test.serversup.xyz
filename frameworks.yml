@@ -1,5 +1,5 @@
 ---
-- name: Install Nginx, SSL files, configure, Install Docker, and launch containers
+- name: Install Nginx, configure, Install Docker, and launch containers
   hosts: all
   become: true
   tasks:
