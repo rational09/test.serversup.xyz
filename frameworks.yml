@@ -1,5 +1,5 @@
 ---
-- name: Install Nginx, Configure, Installl Docker, and launch containers
+- name: Install Nginx, Configure, Install Docker, and launch containers
   hosts: localhost
   become: true
   tasks:
