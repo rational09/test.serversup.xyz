@@ -14,8 +14,8 @@
         dest: "{{ item.dest }}"
       loop:
         - { src: "frontend-code/index.html", dest: "/var/www/html" }
-        - { src: "frontend-code/twitterlogo.png", dest: "/var/www/html" }
-        - { src: "frontend-code/github-logo.webp", dest: "/var/www/html" }
+        - { src: "frontend-code/alogo2-twitter.png", dest: "/var/www/html" }
+        - { src: "frontend-code/alogo1-github.webp", dest: "/var/www/html" }
 
 
     - name: Copy nginx config
